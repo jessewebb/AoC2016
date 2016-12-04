@@ -1,6 +1,6 @@
 import unittest
 
-from day01.solution import calculate_shortest_grid_distance
+from solution import calculate_shortest_grid_distance
 
 
 class SolutionTests(unittest.TestCase):
@@ -58,3 +58,8 @@ class SolutionTests(unittest.TestCase):
         instructions = 'R8, R4, R4, R8'
         result = calculate_shortest_grid_distance(instructions, stop_at_first_location_visited_twice=True)
         self.assertEqual(4, result)
+
+    def test_stop_at_first_location_visited_twice_with_many_lefts(self):
+        instructions = 'L1, L2, L3, L4, L5, L2, L10'
+        result = calculate_shortest_grid_distance(instructions, stop_at_first_location_visited_twice=True)
+        self.assertEqual(1, result)

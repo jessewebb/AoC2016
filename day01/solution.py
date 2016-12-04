@@ -26,11 +26,10 @@ def calculate_shortest_grid_distance(instructions, stop_at_first_location_visite
         turn = step[0]
         blocks = int(step[1:])
         direction = _determine_new_direction(direction, turn)
-        for _ in range(0, blocks):
-            current_position = tuple(pos + change for pos, change in zip(current_position, BEARINGS[direction]))
-            if stop_at_first_location_visited_twice and current_position in visited_positions:
-                break
-            visited_positions.append(current_position)
+        current_position, stop = _determine_new_position(current_position, direction, blocks, visited_positions,
+                                                         stop_at_first_location_visited_twice)
+        if stop:
+            break
 
     (x, y) = current_position
     shortest_grid_distance = abs(x) + abs(y)
@@ -41,6 +40,15 @@ def _determine_new_direction(current_direction, turn):
     value_change = 1 if turn == 'R' else -1
     new_direction_value = current_direction.value + value_change
     return Direction(abs(new_direction_value % 4))
+
+
+def _determine_new_position(current_position, direction, blocks, visited_positions, stop_early_if_already_visited):
+    for _ in range(0, blocks):
+        current_position = tuple(pos + change for pos, change in zip(current_position, BEARINGS[direction]))
+        if stop_early_if_already_visited and current_position in visited_positions:
+            return current_position, True
+        visited_positions.append(current_position)
+    return current_position, False
 
 
 def solve():
