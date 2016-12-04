@@ -17,15 +17,20 @@ BEARINGS = {
 }
 
 
-def calculate_shortest_grid_distance(instructions):
+def calculate_shortest_grid_distance(instructions, stop_at_first_location_visited_twice=False):
     direction = Direction.North
     current_position = (0, 0)
+    visited_positions = [current_position]
     steps = instructions.split(', ')
     for step in steps:
         turn = step[0]
         blocks = int(step[1:])
         direction = _determine_new_direction(direction, turn)
-        current_position = _determine_new_position(current_position, direction, blocks)
+        for _ in range(0, blocks):
+            current_position = tuple(pos + change for pos, change in zip(current_position, BEARINGS[direction]))
+            if stop_at_first_location_visited_twice and current_position in visited_positions:
+                break
+            visited_positions.append(current_position)
 
     (x, y) = current_position
     shortest_grid_distance = abs(x) + abs(y)
@@ -38,17 +43,13 @@ def _determine_new_direction(current_direction, turn):
     return Direction(abs(new_direction_value % 4))
 
 
-def _determine_new_position(current_position, direction, blocks):
-    change_of_position = tuple(x * int(blocks) for x in BEARINGS[direction])
-    current_position = tuple(pos + change for pos, change in zip(current_position, change_of_position))
-    return current_position
-
-
 def solve():
     with open('puzzle_input.txt') as puzzle_input_file:
         puzzle_input = puzzle_input_file.read()
-    answer = calculate_shortest_grid_distance(puzzle_input)
-    print answer
+    part1_answer = calculate_shortest_grid_distance(puzzle_input)
+    part2_answer = calculate_shortest_grid_distance(puzzle_input, stop_at_first_location_visited_twice=True)
+    print 'Part One Answer: {}'.format(part1_answer)
+    print 'Part Two Answer: {}'.format(part2_answer)
 
 
 if __name__ == '__main__':

@@ -5,6 +5,8 @@ from day01.solution import calculate_shortest_grid_distance
 
 class SolutionTests(unittest.TestCase):
 
+    # part one
+
     def test_one_right_turn(self):
         instructions = 'R1'
         result = calculate_shortest_grid_distance(instructions)
@@ -49,3 +51,10 @@ class SolutionTests(unittest.TestCase):
         instructions = 'R5, L5, R5, R3'
         result = calculate_shortest_grid_distance(instructions)
         self.assertEqual(12, result)
+
+    # part two
+
+    def test_stop_at_first_location_visited_twice_example(self):
+        instructions = 'R8, R4, R4, R8'
+        result = calculate_shortest_grid_distance(instructions, stop_at_first_location_visited_twice=True)
+        self.assertEqual(4, result)
