@@ -7,9 +7,9 @@ PART_ONE_KEYPAD = [
 
 PART_TWO_KEYPAD = [
     [None, None, '1', None, None],
-    [None, '2', '3', '4', None],
-    ['5', '6', '7', '8', '9'],
-    [None, 'A', 'B', 'C', None],
+    [None, '2',  '3', '4',  None],
+    ['5',  '6',  '7', '8',  '9'],
+    [None, 'A',  'B', 'C',  None],
     [None, None, 'D', None, None],
 ]
 
