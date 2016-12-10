@@ -1,8 +1,8 @@
 
-_KEYPAD_MATRIX = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
+PART_ONE_KEYPAD = [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9']
 ]
 
 _STARTING_POSITION = (1, 1)
@@ -16,13 +16,13 @@ _MOVEMENTS = {
 }
 
 
-def calculate_keypad_code(instructions):
+def calculate_keypad_code(instructions, keypad):
     current_keypad_position = _STARTING_POSITION
     result = ''
     for instruction_line in instructions.splitlines():
         for movement in instruction_line:
             current_keypad_position = _determine_new_keypad_position(current_keypad_position, movement)
-        result += str(_KEYPAD_MATRIX[current_keypad_position[0]][current_keypad_position[1]])
+        result += keypad[current_keypad_position[0]][current_keypad_position[1]]
     return result
 
 
@@ -40,7 +40,7 @@ def _determine_new_keypad_position(current_position, movement):
 def solve():
     with open('puzzle_input.txt') as puzzle_input_file:
         puzzle_input = puzzle_input_file.read()
-    part1_answer = calculate_keypad_code(puzzle_input)
+    part1_answer = calculate_keypad_code(puzzle_input, PART_ONE_KEYPAD)
     print 'Part One Answer: {}'.format(part1_answer)
 
 
