@@ -1,6 +1,6 @@
 import unittest
 
-from solution import calculate_shortest_grid_distance
+from day01.solution import calculate_shortest_grid_distance
 
 
 class SolutionTests(unittest.TestCase):

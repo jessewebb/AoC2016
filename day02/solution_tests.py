@@ -1,6 +1,6 @@
 import unittest
 
-from solution import calculate_keypad_code, PART_ONE_KEYPAD, PART_TWO_KEYPAD
+from day02.solution import calculate_keypad_code, PART_ONE_KEYPAD, PART_TWO_KEYPAD
 
 
 class SolutionPartOneTests(unittest.TestCase):
