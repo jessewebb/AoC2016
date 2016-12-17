@@ -58,8 +58,9 @@ class Room(object):
                (self.__class__.__name__, self.encrypted_name, self.sector_id, self.checksum)
 
 
-def calculate_sum_of_real_room_sector_ids(puzzle_input):
-    raise NotImplementedError
+def calculate_sum_of_real_room_sector_ids(list_of_rooms_as_text):
+    rooms = [Room.from_input_line(room_input_line) for room_input_line in list_of_rooms_as_text.splitlines()]
+    return sum(room.sector_id for room in rooms if room.is_real)
 
 
 def solve():

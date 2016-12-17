@@ -1,6 +1,6 @@
 import unittest
 
-from day04.solution import Room
+from day04.solution import Room, calculate_sum_of_real_room_sector_ids
 
 
 class RoomIsRealTests(unittest.TestCase):
@@ -48,3 +48,14 @@ class RoomFromInputLineTests(unittest.TestCase):
         result = Room.from_input_line(room_input_line)
         self.assertEqual(result, expected_room)
 
+
+class CalculateSumOfRealRoomSectorIdsTests(unittest.TestCase):
+
+    def test_example(self):
+        list_of_rooms_as_text = 'aaaaa-bbb-z-y-x-123[abxyz]\n' \
+                                'a-b-c-d-e-f-g-h-987[abcde]\n' \
+                                'not-a-real-room-404[oarel]\n' \
+                                'totally-real-room-200[decoy]\n'
+        expected_sum_of_real_room_sector_ids = 1514
+        result = calculate_sum_of_real_room_sector_ids(list_of_rooms_as_text)
+        self.assertEqual(result, expected_sum_of_real_room_sector_ids)
