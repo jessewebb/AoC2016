@@ -1,6 +1,8 @@
 
 from collections import Counter
 
+import re
+
 
 class Room(object):
 
@@ -11,6 +13,9 @@ class Room(object):
 
     @property
     def is_real(self):
+        return self._perform_checksum()
+
+    def _perform_checksum(self):
 
         def _compare_letter_counts(x, y):
             x_letter, x_count = x
@@ -34,6 +39,23 @@ class Room(object):
         five_most_common_letters = [letter for letter, count in sorted_most_common_letters_and_counts][:5]
         checksum_letters = [letter for letter in self.checksum]
         return five_most_common_letters == checksum_letters
+
+    @classmethod
+    def from_input_line(cls, room_input_line):
+        pattern = r'^(?P<encrypted_name>[a-z-]+)-(?P<sector_id>\d+)\[(?P<checksum>[a-z]{5})\]$'
+        match = re.match(pattern, room_input_line)
+        return Room(match.group('encrypted_name'),
+                    int(match.group('sector_id')),
+                    match.group('checksum'))
+
+    def __eq__(self, other):
+        return self.encrypted_name == other.encrypted_name and \
+               self.sector_id == other.sector_id and \
+               self.checksum == other.checksum
+
+    def __repr__(self):
+        return '%s(encrypted_name=%r,sector_id=%r,checksum=%r)' % \
+               (self.__class__.__name__, self.encrypted_name, self.sector_id, self.checksum)
 
 
 def calculate_sum_of_real_room_sector_ids(puzzle_input):
