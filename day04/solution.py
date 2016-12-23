@@ -52,9 +52,7 @@ class Room(object):
                 shifted_index -= char_count
             return chars[shifted_index]
 
-        decrypted_name = ''.join(roll_letter_forward(letter) for letter in self.encrypted_name).replace('-', ' ')
-        return decrypted_name
-
+        return ''.join(roll_letter_forward(letter) for letter in self.encrypted_name).replace('-', ' ')
 
     @classmethod
     def from_input_line(cls, room_input_line):
